@@ -13,7 +13,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
-        'css/custome.css',  
+        'css/custom.css',
         'css/bootstrap.min.css',
         'css/bootstrap-icons.css',
         'css/owl.carousel.min.css',
@@ -21,11 +21,11 @@ class AppAsset extends AssetBundle
         'css/tooplate-gotto-job.css'
     ];
     public $js = [
-       "js/jquery.min.js",
-       "js/bootstrap.min.js",
-       "js/owl.carousel.min.js",
-       "js/counter.js",
-       "js/custom.js"
+        "js/jquery.min.js",
+        "js/bootstrap.min.js",
+        "js/owl.carousel.min.js",
+        "js/counter.js",
+        "js/custom.js"
     ];
     public $depends = [
         'yii\web\YiiAsset',
