@@ -34,7 +34,7 @@ $this->registerCssFile('web/css/custom.css');
 
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
+            <a class="navbar-brand d-flex align-items-center" href="<?= Url::base($schema = true) . '/site/index' ?>">
                 <img src="<?= Url::base($schema = true) . "/images/logo.png" ?>" class="img-fluid logo-image">
 
                 <div class="d-flex flex-column">
@@ -51,7 +51,7 @@ $this->registerCssFile('web/css/custom.css');
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav align-items-center ms-lg-5">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Homepage</a>
+                        <a class="nav-link active" href="<?= Url::base($schema = true) . '/site/index' ?>">Homepage</a>
                     </li>
 
                     <li class="nav-item">
@@ -120,7 +120,7 @@ $this->registerCssFile('web/css/custom.css');
 
                 <div class="col-lg-4 col-md-6 col-12 mb-3">
                     <div class="d-flex align-items-center mb-4">
-                        <img src="images/logo.png" class="img-fluid logo-image">
+                        <img src="<?=Url::base($schema = true).'/images/logo.png'?>" class="img-fluid logo-image">
 
                         <div class="d-flex flex-column">
                             <strong class="logo-text">Gotto</strong>

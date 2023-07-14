@@ -15,6 +15,10 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'enableCsrfValidation' => false,
+            'class' => 'common\components\Request',
+            'web' => '/frontend/web',
+            'cookieValidationKey' => 'cMr2rLVvljIhN-CjvZi206hyFW7xZTdD',
         ],
         'user' => [
             'identityClass' => 'common\models\User',

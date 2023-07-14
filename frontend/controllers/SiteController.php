@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Joblist;
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
 use Yii;
@@ -266,5 +267,12 @@ class SiteController extends Controller
     {  
         return $this->render('contact');
     }
+    public function actionJoblist()
+    {
+        $model = new Joblist();
+        $obj = Joblist::findAll();
+        return view('index')->with('obj', $obj);
+    }
+    
 
 }

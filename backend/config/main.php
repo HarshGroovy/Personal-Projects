@@ -14,7 +14,11 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
-            'csrfParam' => '_csrf-backend',
+            'enableCsrfValidation' => false,
+            'class' => 'common\components\Request',
+            'web' => '/backend/web',
+            'adminUrl' => '/admin',
+            'cookieValidationKey' => 'cMr2rLVvljIhN-CjvZi206hyFW7xZTdD',
         ],
         'user' => [
             'identityClass' => 'common\models\User',
