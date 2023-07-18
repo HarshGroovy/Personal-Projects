@@ -37,7 +37,7 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Image List', 'url' => ['/site/imagelist']],
         ['label' => 'users', 'url' => ['/site/getuser']],
-        ['label' => 'add job', 'url' => ['/site/getuser']],
+        ['label' => 'add job', 'url' => ['/site/joblist']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'upload', 'url' => ['/site/image']];

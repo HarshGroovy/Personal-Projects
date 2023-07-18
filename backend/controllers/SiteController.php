@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use backend\models\Image;
-use frontend\models\User;
+use common\models\User;
 use yii\web\NotFoundHttpException;
 use backend\models\Joblist;
 /**
@@ -24,26 +24,7 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            // 'access' => [
-            //     'class' => AccessControl::class,
-            //     'rules' => [
-            //         // [
-            //         //     'actions' => ['login', 'error'],
-            //         //     'allow' => true,
-            //         // ],
-            //         // [
-            //         //     'actions' => ['logout', 'index'],
-            //         //     'allow' => true,
-            //         //     'roles' => ['@'],
-            //         // ],
-            //     ],
-            // ],
-            // 'verbs' => [
-            //     'class' => VerbFilter::class,
-            //     'actions' => [
-            //         'logout' => ['post'],
-            //     ],
-            // ],
+            
         ];
     }
 
@@ -151,35 +132,48 @@ class SiteController extends Controller
      *
      * @return string|Response
      */
-    // public function actionLogin()
-    // {
-    //     // if (!Yii::$app->user->isGuest) {
-    //     //     return $this->goHome();
-    //     // }
+    public function actionLogin()
+    {
+        $model = new User(); // Assuming you have a User model
 
-    //     // $this->layout = 'blank';
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Check if the user exists in the table
+            $user = User::findOne(['username' => $model->username]);
+            if($user){
+            if ($model->password == $user->password) {
+                Yii::$app->session->set('username',$model->username);
+            ?>
+                <script type="text/javascript">
+                    alert('Welcome to Gotto! Find your dream job.');
+                </script>
+                <?php
+                return $this->redirect(['/site/index']);
+            } else {
+                // User does not exist or password is incorrect
+                ?>
+                <script type="text/javascript">
+                    alert('Wrong username or password. Please try again.');
+                </script>
+                <?php
+            }
+            }
+            else {
+                # code...  
+                ?>
+                <script type="text/javascript">
+                    alert('Wrong username or password. Please try again.');
+                </script>
+                <?php
+            }
+        }
 
-    //     // $model = new LoginForm();
-    //     // if ($model->load(Yii::$app->request->post()) && $model->login()) {
-    //     //     return $this->goBack();
-    //     // }
-
-    //     // $model->password = '';
-
-    //     // return $this->render('login', [
-    //     //     'model' => $model,
-    //     // ]);
-    // }
-
-    /**
-     * Logout action.
-     *
-     * @return Response
-     */
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
     public function actionLogout()
     {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+        Yii::$app->session->destroy();
+        return $this->redirect(['site/index']); // Redirect to the homepage or any other page after logout
     }
 }
