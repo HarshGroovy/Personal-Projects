@@ -54,7 +54,7 @@ class Image extends \yii\db\ActiveRecord
             'createdAt' => 'Created At',
         ];
     }
-    public function upload()
+    public function upload($type=admin)
     {
         if ($this->validate()) {
 
@@ -64,7 +64,7 @@ class Image extends \yii\db\ActiveRecord
             // // Save image details to the database
             $image = new Image();
             $image->assign_id = 3; // Assign the appropriate assign_id
-            $image->type = 'admin'; // Assign the appropriate type
+            $image->type = $type; // Assign the appropriate type
             $image->path = $path;
             $image->extention = $this->path->extension;
             $image->save();

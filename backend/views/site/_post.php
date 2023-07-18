@@ -17,9 +17,6 @@
 </tr>
 </thead>
   <tbody>
-  <?php
-  if ($model->type == 'admin') { ?>
-  
         <tr>                                        
         <td><?= $model->id ?></td>
           <td><?= $model->assign_id ?></td>
@@ -27,8 +24,5 @@
           <td><?= $model->type ?></td>
         </tr>
    
-<?php
-  }
-?>
    </tbody>
     </table>

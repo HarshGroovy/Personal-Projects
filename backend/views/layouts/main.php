@@ -33,9 +33,11 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark bg-dark fixed-top',
         ],
-    ]);
+    ]);                   
     $menuItems = [
         ['label' => 'Image List', 'url' => ['/site/imagelist']],
+        ['label' => 'users', 'url' => ['/site/getuser']],
+        ['label' => 'add job', 'url' => ['/site/getuser']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'upload', 'url' => ['/site/image']];
