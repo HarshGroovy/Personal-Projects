@@ -317,4 +317,25 @@ class Controller extends \yii\base\Controller
     {
         return $this->response->redirect($this->request->getUrl() . $anchor);
     }
+    public function pagination($provider, $pageSize = Users::PAGE_SIZE, $page)
+    {
+        try {
+            $pagination = array_intersect_key(
+                (array)$provider->pagination,
+                array_flip(
+                    \Yii::$app->params['paginationParams']
+                )
+            );
+
+            $totalPage                  = ceil($pagination['totalCount'] / $pageSize);
+            $pagination['totalPage']    = $totalPage;
+            $pagination['currentPage']  = $page + 1;
+            $pagination['isMore']       = $totalPage <= $pagination['currentPage'] ? false : true;
+
+            return ['status' => true, 'pagination' => $pagination];
+        } catch (\Exception $e) {
+            $this->createLogFile($e, 'CommonUserComponent_');
+            return array('status' => false, 'message' => $e->getMessage());
+        }
+    }
 }

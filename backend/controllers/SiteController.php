@@ -8,7 +8,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
-
+use yii\web\UploadedFile;
+use backend\models\Image;
 /**
  * Site controller
  */
@@ -20,26 +21,26 @@ class SiteController extends Controller
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::class,
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error'],
-                        'allow' => true,
-                    ],
-                    [
-                        'actions' => ['logout', 'index'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
+            // 'access' => [
+            //     'class' => AccessControl::class,
+            //     'rules' => [
+            //         // [
+            //         //     'actions' => ['login', 'error'],
+            //         //     'allow' => true,
+            //         // ],
+            //         // [
+            //         //     'actions' => ['logout', 'index'],
+            //         //     'allow' => true,
+            //         //     'roles' => ['@'],
+            //         // ],
+            //     ],
+            // ],
+            // 'verbs' => [
+            //     'class' => VerbFilter::class,
+            //     'actions' => [
+            //         'logout' => ['post'],
+            //     ],
+            // ],
         ];
     }
 
@@ -64,31 +65,52 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+    public function actionImagelist()
+    {       
+        $model = new Image();
+        return $this->render('imagelist',['model' => $model]);
+    }
+    
+    public function actionImage()
+    {
+        $model = new Image();
 
+        if (Yii::$app->request->isPost) {
+            $model->path = UploadedFile::getInstance($model, 'path');
+
+            if ($model->upload()) {
+                // Image uploaded successfully
+                Yii::$app->session->setFlash('success', 'Image uploaded successfully.');
+                return $this->redirect(['site/image']); // Redirect to the image listing page or any other page
+            }
+        }
+
+        return $this->render('image', ['model' => $model]);
+    }
     /**
      * Login action.
      *
      * @return string|Response
      */
-    public function actionLogin()
-    {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+    // public function actionLogin()
+    // {
+    //     // if (!Yii::$app->user->isGuest) {
+    //     //     return $this->goHome();
+    //     // }
 
-        $this->layout = 'blank';
+    //     // $this->layout = 'blank';
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        }
+    //     // $model = new LoginForm();
+    //     // if ($model->load(Yii::$app->request->post()) && $model->login()) {
+    //     //     return $this->goBack();
+    //     // }
 
-        $model->password = '';
+    //     // $model->password = '';
 
-        return $this->render('login', [
-            'model' => $model,
-        ]);
-    }
+    //     // return $this->render('login', [
+    //     //     'model' => $model,
+    //     // ]);
+    // }
 
     /**
      * Logout action.
